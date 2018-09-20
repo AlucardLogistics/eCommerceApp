@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_menu_search"
+            android:title="Search" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_cart"
+            android:icon="@drawable/ic_menu_cart"
+            android:title="Cart" />
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_menu_categories"
+            android:title="Categories" />
+        <item
+            android:id="@+id/nav_order_history"
+            android:icon="@drawable/ic_menu_order_history"
+            android:title="Order History" />
+        <item
+            android:id="@+id/nav_wish_list"
+            android:icon="@drawable/ic_menu_wish_list"
+            android:title="Wish List" />
+        <item
+            android:id="@+id/nav_viewed_items"
+            android:icon="@drawable/ic_menu_viewed_items"
+            android:title="Viewed Items" />
+    </group>
+
+    <item android:title="User Options">
+        <menu>
+            <item
+                android:id="@+id/nav_account"
+                android:title="My Account" />
+            <item
+                android:id="@+id/nav_settings"
+                android:title="Settings" />
+            <item
+                android:id="@+id/nav_contact"
+                android:title="Contact Us" />
+            <item
+                android:id="@+id/nav_logout"
+                android:title="LOG OUT" />
+
+        </menu>
+    </item>
+
+</menu>
