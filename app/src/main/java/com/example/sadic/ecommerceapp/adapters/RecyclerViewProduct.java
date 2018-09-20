@@ -17,8 +17,13 @@ import java.util.List;
 
 public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduct.ProductViewHolder> {
 
-    List<Product> productList;
     Context context;
+    List<Product> productList;
+
+    public RecyclerViewProduct(Context context, List<Product> productList) {
+        this.context = context;
+        this.productList = productList;
+    }
 
     @NonNull
     @Override
@@ -34,10 +39,10 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
-        holder.tvId.setText(product.getpId());
+        holder.tvId.setText("Id: " + product.getpId());
         holder.tvName.setText(product.getpName());
-        holder.tvQuantity.setText(product.getpQuantity());
-        holder.tvPrice.setText(product.getpPrice());
+        holder.tvQuantity.setText("Quantity: " + product.getpQuantity());
+        holder.tvPrice.setText("Price: " + product.getpPrice());
         holder.tvDescription.setText(product.getpDescription());
 
         Picasso.get()
@@ -64,6 +69,7 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
             this.tvQuantity = itemView.findViewById(R.id.tvQuantity);
             this.tvPrice = itemView.findViewById(R.id.tvPrice);
             this.tvDescription = itemView.findViewById(R.id.tvDescription);
+            this.ivThumbImage = itemView.findViewById(R.id.ivThumb);
         }
     }
 }
