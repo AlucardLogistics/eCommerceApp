@@ -1,6 +1,7 @@
 package com.example.sadic.ecommerceapp.ui.mainfeed;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.sadic.ecommerceapp.ui.category.CategoryActivity;
 import com.example.sadic.ecommerceapp.utils.AppController;
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.adapters.RecyclerViewProduct;
@@ -122,6 +124,8 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.action_categories) {
             Toast.makeText(this, "categories", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(MainActivity.this, CategoryActivity.class);
+            startActivity(i);
             return true;
         } else if (id == R.id.action_cart) {
             Toast.makeText(this, "cart", Toast.LENGTH_SHORT).show();
@@ -183,5 +187,6 @@ public class MainActivity extends AppCompatActivity
         adapter = new RecyclerViewProduct(this, productList);
         recyclerView.setAdapter(adapter);
         dismissDialog();
+
     }
 }

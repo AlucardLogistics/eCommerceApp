@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.sadic.ecommerceapp.data.network.model.Category;
 import com.example.sadic.ecommerceapp.utils.AppController;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
@@ -22,17 +23,72 @@ public class NetworkHelper implements INetworkHelper {
 
 
     @Override
-    public void getCategories(IDataManager.OnResponseNetworkListener categoryListener) {
+    public void getCategories(final IDataManager.OnResponseCategoryListener categoryListener) {
+        String categoryListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key=5fcb3d85f0ce5afb02618973b9e17919&user_id=1385";
+
+        final JsonObjectRequest jsonObject = new JsonObjectRequest(
+                Request.Method.GET,
+                categoryListJSON,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "onResponse: started");
+                        try {
+                            JSONArray categoryArray = response.getJSONArray("category");
+                            //new variables
+                            Category category;
+                            //RecyclerView rvProduct = null;
+                            List<Category> categoryList = new ArrayList<>();
+                            //RecyclerViewProduct adapter = new RecyclerViewProduct(productList);
+
+
+                            for(int i = 0; i < categoryArray.length(); i ++) {
+                                Log.d(TAG, "onResponse: response length: " + response.length());
+
+                                JSONObject products = categoryArray.getJSONObject(i);
+
+                                String cId = products.getString("cid");
+                                String cName = products.getString("cname");
+                                String cDescription = products.getString("cdiscription");
+                                String cThumbImgUrl = products.getString("cimagerl");
+
+                                category =
+                                        new Category(cId, cName, cDescription, cThumbImgUrl);
+                                categoryList.add(category);
+                                //add response
+                                categoryListener.getCategories(categoryList);
+                                //rvProduct.setAdapter(adapter);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "onResponse: started");
+                            //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        //dismissDialog();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //dismissDialog();
+
+                    }
+                }
+        );
+        AppController.getInstance().addToRequestQueue(jsonObject);
 
     }
 
     @Override
-    public void getSubCategories(IDataManager.OnResponseNetworkListener subCategoryListener) {
+    public void getSubCategories(IDataManager.OnResponseSubCategoryListener subCategoryListener) {
 
     }
 
     @Override
-    public void getProducts(final IDataManager.OnResponseNetworkListener productListener) {
+    public void getProducts(final IDataManager.OnResponseProductListener productListener) {
 
         String productListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/product_details.php?cid=107&scid=205&api_key=5fcb3d85f0ce5afb02618973b9e17919&user_id=1385";
 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.product_detail.DetailActivity">
+
+    <ImageView
+        android:id="@+id/ivImageDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="35dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPriceDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameDetail"
+        app:srcCompat="@drawable/placeholder" />
+
+    <TextView
+        android:id="@+id/tvNameDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="31dp"
+        android:text="Name"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ivImageDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPriceDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="16dp"
+        android:text="Price"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivImageDetail" />
+
+    <TextView
+        android:id="@+id/tvDescriptionDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="109dp"
+        android:layout_marginStart="16dp"
+        android:text="Description"
+        app:layout_constraintBottom_toTopOf="@+id/btAddCart"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceDetail" />
+
+    <Button
+        android:id="@+id/btAddCart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginStart="49dp"
+        android:background="#ef7c35"
+        android:onClick="eventHandler"
+        android:text="Add To Cart"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetail" />
+</android.support.constraint.ConstraintLayout>

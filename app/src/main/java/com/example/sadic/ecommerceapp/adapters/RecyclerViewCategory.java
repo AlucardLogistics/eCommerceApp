@@ -40,9 +40,9 @@ public class RecyclerViewCategory extends RecyclerView.Adapter<RecyclerViewCateg
 
         Category category = categoryList.get(position);
 
-        holder.tvIdCat.setText(category.getcId());
+        holder.tvIdCat.setText("Id: " + category.getcId());
         holder.tvNameCat.setText(category.getcName());
-        holder.tvDescriptionCat.setText(category.getcDescription());
+        holder.tvDescriptionCat.setText("About: " + category.getcDescription());
 
         Picasso.get()
                 .load(category.getcImage())

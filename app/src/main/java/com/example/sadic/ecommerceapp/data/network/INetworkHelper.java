@@ -4,9 +4,9 @@ import com.example.sadic.ecommerceapp.data.IDataManager;
 
 public interface INetworkHelper {
 
-    void getCategories(IDataManager.OnResponseNetworkListener categoryListener);
-    void getSubCategories(IDataManager.OnResponseNetworkListener subCategoryListener);
-    void getProducts(IDataManager.OnResponseNetworkListener productListener);
+    void getCategories(IDataManager.OnResponseCategoryListener categoryListener);
+    void getSubCategories(IDataManager.OnResponseSubCategoryListener subCategoryListener);
+    void getProducts(IDataManager.OnResponseProductListener productListener);
 
 
 }

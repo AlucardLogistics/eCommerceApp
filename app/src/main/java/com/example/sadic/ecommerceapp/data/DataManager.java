@@ -15,17 +15,17 @@ public class DataManager implements IDataManager {
 
 
     @Override
-    public void getCategories(OnResponseNetworkListener categoryListener) {
+    public void getCategories(OnResponseCategoryListener categoryListener) {
+        networkHelper.getCategories(categoryListener);
+    }
+
+    @Override
+    public void getSubCategories(OnResponseSubCategoryListener subCategoryListener) {
 
     }
 
     @Override
-    public void getSubCategories(OnResponseNetworkListener subCategoryListener) {
-
-    }
-
-    @Override
-    public void getProducts(OnResponseNetworkListener productListener) {
+    public void getProducts(OnResponseProductListener productListener) {
         networkHelper.getProducts(productListener);
     }
 }

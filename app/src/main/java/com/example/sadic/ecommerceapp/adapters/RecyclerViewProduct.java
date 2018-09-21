@@ -1,6 +1,8 @@
 package com.example.sadic.ecommerceapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,10 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.R;
 
 import com.example.sadic.ecommerceapp.data.network.model.Product;
+import com.example.sadic.ecommerceapp.ui.product_detail.DetailActivity;
+import com.example.sadic.ecommerceapp.ui.product_detail.PresenterDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -44,6 +49,11 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
+        final String pName = product.getpName();
+        final String pPrice = product.getpPrice();
+        final String pDescription = product.getpDescription();
+        final String pImgUrl = product.getpThumbUrl();
+
         holder.tvId.setText("Id: " + product.getpId());
         holder.tvName.setText(product.getpName());
         holder.tvQuantity.setText("Quantity: " + product.getpQuantity());
@@ -54,6 +64,20 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
                 .load(product.getpThumbUrl())
                 .placeholder(R.drawable.placeholder)
                 .into(holder.ivThumbImage);
+
+        holder.ivThumbImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b = new Bundle();
+                b.putString("pName", pName);
+                b.putString("pPrice", pPrice);
+                b.putString("pDescription", pDescription);
+                b.putString("pImgUrl", pImgUrl);
+                Intent i = new Intent(context, DetailActivity.class);
+                i.putExtras(b);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
