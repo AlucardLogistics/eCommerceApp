@@ -10,7 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sadic.ecommerceapp.R;
-import com.example.sadic.ecommerceapp.data.database.model.Product;
+
+import com.example.sadic.ecommerceapp.data.network.model.Product;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
 
     public RecyclerViewProduct(Context context, List<Product> productList) {
         this.context = context;
+        this.productList = productList;
+    }
+
+    public RecyclerViewProduct(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -64,12 +69,12 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            this.tvId = itemView.findViewById(R.id.tvId);
-            this.tvName = itemView.findViewById(R.id.tvName);
-            this.tvQuantity = itemView.findViewById(R.id.tvQuantity);
-            this.tvPrice = itemView.findViewById(R.id.tvPrice);
-            this.tvDescription = itemView.findViewById(R.id.tvDescription);
-            this.ivThumbImage = itemView.findViewById(R.id.ivThumb);
+            this.tvId = itemView.findViewById(R.id.tvIdProd);
+            this.tvName = itemView.findViewById(R.id.tvNameProd);
+            this.tvQuantity = itemView.findViewById(R.id.tvQuantityProd);
+            this.tvPrice = itemView.findViewById(R.id.tvPriceProd);
+            this.tvDescription = itemView.findViewById(R.id.tvDescriptionProd);
+            this.ivThumbImage = itemView.findViewById(R.id.ivThumbProd);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.sadic.ecommerceapp;
+package com.example.sadic.ecommerceapp.utils;
 
 import android.app.Application;
 import android.text.TextUtils;

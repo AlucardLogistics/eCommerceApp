@@ -1,4 +1,4 @@
-package com.example.sadic.ecommerceapp.data.database.model;
+package com.example.sadic.ecommerceapp.data.network.model;
 
 public class Product {
 

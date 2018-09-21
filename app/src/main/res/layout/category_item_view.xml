@@ -22,59 +22,40 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/ivThumbProd"
+                android:id="@+id/ivThumbCat"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_alignParentStart="true"
                 android:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/tvIdProd"
+                android:id="@+id/tvIdCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/ivThumbProd"
-                android:layout_marginRight="20dp"
-                android:text="productId"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvNameProd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
                 android:layout_marginStart="120dp"
-                android:text="pName"
+                android:layout_alignTop="@+id/ivThumbCat"
+                android:layout_marginRight="20dp"
+                android:text="categoryId"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvQuantityProd"
+                android:id="@+id/tvNameCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvIdProd"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
+                android:layout_below="@id/tvIdCat"
+                android:layout_marginStart="120dp"
                 android:layout_marginTop="10dp"
-                android:text="pQuantity" />
+                android:text="cName"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvPriceProd"
+                android:id="@+id/tvDescriptionCat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvNameProd"
+                android:layout_below="@id/tvNameCat"
                 android:layout_marginLeft="120dp"
                 android:layout_marginTop="10dp"
-                android:text="pPrice" />
-
-            <TextView
-                android:id="@+id/tvDescriptionProd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tvPriceProd"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="10dp"
-                android:text="pDesc" />
+                android:text="cDesc" />
 
 
         </RelativeLayout>
