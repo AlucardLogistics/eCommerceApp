@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.sadic.ecommerceapp.data.network.model.Category;
+import com.example.sadic.ecommerceapp.data.network.model.SubCategory;
 import com.example.sadic.ecommerceapp.utils.AppController;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
@@ -83,8 +84,62 @@ public class NetworkHelper implements INetworkHelper {
     }
 
     @Override
-    public void getSubCategories(IDataManager.OnResponseSubCategoryListener subCategoryListener) {
+    public void getSubCategories(final IDataManager.OnResponseSubCategoryListener subCategoryListener) {
+        String subCategoryListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_sub_category.php?Id=107&api_key=5fcb3d85f0ce5afb02618973b9e17919&user_id=1385";
 
+        final JsonObjectRequest jsonObject = new JsonObjectRequest(
+                Request.Method.GET,
+                subCategoryListJSON,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "onResponse: started");
+                        try {
+                            JSONArray subCategoryArray = response.getJSONArray("subcategory");
+                            //new variables
+                            SubCategory subCategory;
+                            //RecyclerView rvProduct = null;
+                            List<SubCategory> subCategoryList = new ArrayList<>();
+                            //RecyclerViewProduct adapter = new RecyclerViewProduct(productList);
+
+
+                            for(int i = 0; i < subCategoryArray.length(); i ++) {
+                                Log.d(TAG, "onResponse: response length: " + response.length());
+
+                                JSONObject subCategoryArr = subCategoryArray.getJSONObject(i);
+
+                                String scId = subCategoryArr.getString("scid");
+                                String scName = subCategoryArr.getString("scname");
+                                String scDescription = subCategoryArr.getString("scdiscription");
+                                String scThumbImgUrl = subCategoryArr.getString("scimageurl");
+
+                                subCategory =
+                                        new SubCategory(scId, scName, scDescription, scThumbImgUrl);
+                                subCategoryList.add(subCategory);
+                                //add response
+                                subCategoryListener.getSubCategories(subCategoryList);
+                                //rvProduct.setAdapter(adapter);
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d(TAG, "onResponse: started");
+                            //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        //dismissDialog();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        //dismissDialog();
+
+                    }
+                }
+        );
+        AppController.getInstance().addToRequestQueue(jsonObject);
     }
 
     @Override

@@ -21,7 +21,7 @@ public class DataManager implements IDataManager {
 
     @Override
     public void getSubCategories(OnResponseSubCategoryListener subCategoryListener) {
-
+        networkHelper.getSubCategories(subCategoryListener);
     }
 
     @Override

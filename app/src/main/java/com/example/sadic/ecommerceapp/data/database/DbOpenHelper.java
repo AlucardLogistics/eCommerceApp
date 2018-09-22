@@ -4,8 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.sadic.ecommerceapp.data.database.model.ProductContract.ProductEntry;
-import com.example.sadic.ecommerceapp.data.network.model.Product;
+import com.example.sadic.ecommerceapp.data.database.model.CartContract.ProductEntry;
 
 public class DbOpenHelper extends SQLiteOpenHelper {
 

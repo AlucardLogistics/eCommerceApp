@@ -3,6 +3,7 @@ package com.example.sadic.ecommerceapp.data;
 import com.example.sadic.ecommerceapp.data.network.INetworkHelper;
 import com.example.sadic.ecommerceapp.data.network.model.Category;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
+import com.example.sadic.ecommerceapp.data.network.model.SubCategory;
 
 import java.util.List;
 
@@ -21,6 +22,6 @@ public interface IDataManager extends INetworkHelper {
     }
 
     interface OnResponseSubCategoryListener {
-        void getSubCategories();
+        void getSubCategories(List<SubCategory> subCategoryList);
     }
 }
