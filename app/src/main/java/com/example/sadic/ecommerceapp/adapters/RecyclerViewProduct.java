@@ -49,7 +49,9 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
 
+        final String pId = product.getpId();
         final String pName = product.getpName();
+        final String pQuantity = product.getpQuantity();
         final String pPrice = product.getpPrice();
         final String pDescription = product.getpDescription();
         final String pImgUrl = product.getpThumbUrl();
@@ -69,7 +71,9 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
+                b.putString("pId", pId);
                 b.putString("pName", pName);
+                b.putString("pQuantity", pQuantity);
                 b.putString("pPrice", pPrice);
                 b.putString("pDescription", pDescription);
                 b.putString("pImgUrl", pImgUrl);

@@ -2,18 +2,19 @@ package com.example.sadic.ecommerceapp.data.database.model;
 
 public class CartProduct {
 
-    String pId, pName, pQuantity, pPrice, pThumbPath;
-    boolean isCart, isWish;
+    String pId, pName, pQuantity, pPrice, pDescription, pThumbPath;
+    int isCart, isWish;
 
     public CartProduct() {
     }
 
     public CartProduct(String pId, String pName, String pQuantity,
-                       String pPrice, String pThumbPath, boolean isCart, boolean isWish) {
+                       String pPrice, String pDescription, String pThumbPath, int isCart, int isWish) {
         this.pId = pId;
         this.pName = pName;
         this.pQuantity = pQuantity;
         this.pPrice = pPrice;
+        this.pDescription = pDescription;
         this.pThumbPath = pThumbPath;
         this.isCart = isCart;
         this.isWish = isWish;
@@ -51,6 +52,14 @@ public class CartProduct {
         this.pPrice = pPrice;
     }
 
+    public String getpDescription() {
+        return pDescription;
+    }
+
+    public void setpDescription(String pDescription) {
+        this.pDescription = pDescription;
+    }
+
     public String getpThumbPath() {
         return pThumbPath;
     }
@@ -59,19 +68,33 @@ public class CartProduct {
         this.pThumbPath = pThumbPath;
     }
 
-    public boolean isCart() {
+    public int getIsCart() {
         return isCart;
     }
 
-    public void setCart(boolean cart) {
-        isCart = cart;
+    public void setIsCart(int isCart) {
+        this.isCart = isCart;
     }
 
-    public boolean isWish() {
+    public int getIsWish() {
         return isWish;
     }
 
-    public void setWish(boolean wish) {
-        isWish = wish;
+    public void setIsWish(int isWish) {
+        this.isWish = isWish;
+    }
+
+    @Override
+    public String toString() {
+        return "CartProduct{" +
+                "pId='" + pId + '\'' +
+                ", pName='" + pName + '\'' +
+                ", pQuantity='" + pQuantity + '\'' +
+                ", pPrice='" + pPrice + '\'' +
+                ", pDescription='" + pDescription + '\'' +
+                ", pThumbPath='" + pThumbPath + '\'' +
+                ", isCart=" + isCart +
+                ", isWish=" + isWish +
+                '}';
     }
 }
