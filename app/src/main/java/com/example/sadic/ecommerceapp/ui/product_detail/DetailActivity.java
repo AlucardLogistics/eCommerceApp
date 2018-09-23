@@ -2,7 +2,6 @@ package com.example.sadic.ecommerceapp.ui.product_detail;
 
 import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -125,7 +124,7 @@ public class DetailActivity extends AppCompatActivity implements IViewDetail {
         try {
             File root = new File(eComm);
             root.mkdirs();
-            File sdImageMainDir = new File(root, imgId + imgName + "Wish.png");
+            File sdImageMainDir = new File(root, imgId + "Wish.png");
             outputFileUri = Uri.fromFile(sdImageMainDir);
             fOut = new FileOutputStream(sdImageMainDir);
             Log.d(TAG, "saveImage: save into: " + root.toString());

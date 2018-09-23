@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,22 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.sadic.ecommerceapp.adapters.RecyclerViewProductAdapter;
+import com.example.sadic.ecommerceapp.ui.cart.CartActivity;
 import com.example.sadic.ecommerceapp.ui.category.CategoryActivity;
-import com.example.sadic.ecommerceapp.utils.AppController;
 import com.example.sadic.ecommerceapp.R;
-import com.example.sadic.ecommerceapp.adapters.RecyclerViewProduct;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -43,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     private static final String TAG = "MainActivity";
 
     RecyclerView recyclerView;
-    RecyclerViewProduct adapter;
+    RecyclerViewProductAdapter adapter;
     ProgressDialog pd;
     IPresenterMain presenterMain;
 
@@ -124,11 +114,13 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.action_categories) {
             Toast.makeText(this, "categories", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(MainActivity.this, CategoryActivity.class);
-            startActivity(i);
+            Intent categoryIntent = new Intent(MainActivity.this, CategoryActivity.class);
+            startActivity(categoryIntent);
             return true;
         } else if (id == R.id.action_cart) {
             Toast.makeText(this, "cart", Toast.LENGTH_SHORT).show();
+            Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(cartIntent);
             return true;
         }
 
@@ -184,7 +176,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void showProductList(List<Product> productList) {
-        adapter = new RecyclerViewProduct(this, productList);
+        adapter = new RecyclerViewProductAdapter(this, productList);
         recyclerView.setAdapter(adapter);
         dismissDialog();
 

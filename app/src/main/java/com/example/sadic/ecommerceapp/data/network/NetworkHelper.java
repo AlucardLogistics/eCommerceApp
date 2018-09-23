@@ -41,7 +41,7 @@ public class NetworkHelper implements INetworkHelper {
                             Category category;
                             //RecyclerView rvProduct = null;
                             List<Category> categoryList = new ArrayList<>();
-                            //RecyclerViewProduct adapter = new RecyclerViewProduct(productList);
+                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
 
 
                             for(int i = 0; i < categoryArray.length(); i ++) {
@@ -101,7 +101,7 @@ public class NetworkHelper implements INetworkHelper {
                             SubCategory subCategory;
                             //RecyclerView rvProduct = null;
                             List<SubCategory> subCategoryList = new ArrayList<>();
-                            //RecyclerViewProduct adapter = new RecyclerViewProduct(productList);
+                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
 
 
                             for(int i = 0; i < subCategoryArray.length(); i ++) {
@@ -161,7 +161,7 @@ public class NetworkHelper implements INetworkHelper {
                             Product product;
                             //RecyclerView rvProduct = null;
                             List<Product> productList = new ArrayList<>();
-                            //RecyclerViewProduct adapter = new RecyclerViewProduct(productList);
+                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
 
 
                             for(int i = 0; i < prodArray.length(); i ++) {

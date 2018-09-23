@@ -8,7 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.sadic.ecommerceapp.R;
-import com.example.sadic.ecommerceapp.adapters.RecyclerViewCategory;
+import com.example.sadic.ecommerceapp.adapters.RecyclerViewCategoryAdapter;
 import com.example.sadic.ecommerceapp.data.network.model.Category;
 
 import java.util.List;
@@ -17,7 +17,7 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
 
     IPresenterCategory presenterCategory;
     RecyclerView rvCategory;
-    RecyclerViewCategory adapter;
+    RecyclerViewCategoryAdapter adapter;
     ProgressDialog pd;
 
     @Override
@@ -44,7 +44,7 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
 
     @Override
     public void showCategoryList(List<Category> categoryList) {
-        adapter = new RecyclerViewCategory(this, categoryList);
+        adapter = new RecyclerViewCategoryAdapter(this, categoryList);
         rvCategory.setAdapter(adapter);
         dismissDialog();
     }

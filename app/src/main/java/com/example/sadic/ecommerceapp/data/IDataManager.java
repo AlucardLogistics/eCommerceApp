@@ -12,7 +12,8 @@ import java.util.List;
 public interface IDataManager extends INetworkHelper, IDbHelper {
 
     interface OnResponseListener {
-        void getcartProduct(CartProduct cartProduct);
+        //void getCartProduct(CartProduct cartProduct);
+        void getCartProductList(List<CartProduct> cartProductList);
 
     }
 

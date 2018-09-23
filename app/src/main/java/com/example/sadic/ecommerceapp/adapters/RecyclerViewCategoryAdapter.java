@@ -17,12 +17,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewCategory extends RecyclerView.Adapter<RecyclerViewCategory.CategoryViewHolder> {
+public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerViewCategoryAdapter.CategoryViewHolder> {
 
     Context context;
     List<Category> categoryList;
 
-    public RecyclerViewCategory(Context context, List<Category> categoryList) {
+    public RecyclerViewCategoryAdapter(Context context, List<Category> categoryList) {
         this.context = context;
         this.categoryList = categoryList;
     }
@@ -31,7 +31,7 @@ public class RecyclerViewCategory extends RecyclerView.Adapter<RecyclerViewCateg
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.category_item_view, parent, false);
+                .inflate(R.layout.item_view_category, parent, false);
 
 
         return new CategoryViewHolder(v);

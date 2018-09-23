@@ -10,28 +10,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.R;
 
 import com.example.sadic.ecommerceapp.data.network.model.Product;
 import com.example.sadic.ecommerceapp.ui.product_detail.DetailActivity;
-import com.example.sadic.ecommerceapp.ui.product_detail.PresenterDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduct.ProductViewHolder> {
+public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerViewProductAdapter.ProductViewHolder> {
 
     Context context;
     List<Product> productList;
 
-    public RecyclerViewProduct(Context context, List<Product> productList) {
+    public RecyclerViewProductAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
 
-    public RecyclerViewProduct(List<Product> productList) {
+    public RecyclerViewProductAdapter(List<Product> productList) {
         this.productList = productList;
     }
 
@@ -40,7 +38,7 @@ public class RecyclerViewProduct extends RecyclerView.Adapter<RecyclerViewProduc
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.product_item_view, parent, false);
+                .inflate(R.layout.item_view_product, parent, false);
 
         return new ProductViewHolder(v);
     }

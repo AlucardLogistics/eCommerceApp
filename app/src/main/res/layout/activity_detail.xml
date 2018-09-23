@@ -4,29 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.product_detail.DetailActivity">
+    tools:context=".ui.product_detail.DetailActivity"
+    tools:layout_editor_absoluteY="81dp">
 
     <ImageView
         android:id="@+id/ivImageDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginBottom="35dp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvPriceDetail"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="69dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="72dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDescriptionDetail"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNameDetail"
+        app:layout_constraintTop_toTopOf="@+id/btWishList"
         app:srcCompat="@drawable/placeholder" />
 
     <TextView
         android:id="@+id/tvNameDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="38dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginTop="25dp"
         android:text="Name"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/ivImageDetail"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,22 +37,20 @@
         android:id="@+id/tvPriceDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="278dp"
         android:layout_marginStart="16dp"
         android:text="Price"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/tvDescriptionDetail"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivImageDetail" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvDescriptionDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="109dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
         android:text="Description"
-        app:layout_constraintBottom_toTopOf="@+id/btAddCart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPriceDetail" />
 
@@ -57,8 +58,7 @@
         android:id="@+id/btAddCart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="46dp"
         android:layout_marginEnd="49dp"
         android:layout_marginStart="49dp"
         android:background="#ef7c35"
@@ -68,8 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDescriptionDetail" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/btWishList"
@@ -77,9 +76,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="17dp"
         android:layout_marginTop="16dp"
-        android:onClick="eventHandler"
-        android:text="WishIt"
         android:background="#ef7c35"
+        android:onClick="eventHandler"
+        android:text="Wish List"
         android:textColor="#fff"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
