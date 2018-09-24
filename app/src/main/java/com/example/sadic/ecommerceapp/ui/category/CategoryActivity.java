@@ -24,9 +24,15 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
+
+        init();
+
         presenterCategory = new PresenterCategory(this);
         presenterCategory.setActivityData();
 
+    }
+
+    void init() {
         rvCategory = findViewById(R.id.rvCategory);
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
@@ -39,7 +45,6 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
         pd.setMessage("Fetching data from the database!");
         pd.setCancelable(false);
         showDialog();
-
     }
 
     @Override

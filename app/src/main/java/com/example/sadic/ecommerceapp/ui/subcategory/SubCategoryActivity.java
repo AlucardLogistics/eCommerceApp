@@ -24,9 +24,14 @@ public class SubCategoryActivity extends AppCompatActivity implements IViewSubCa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub_category);
+
+        init();
+
         presenterSubCategory = new PresenterSubCategory(this);
         presenterSubCategory.setActivityData();
+    }
 
+    void init() {
         rvSubCategory = findViewById(R.id.rvSubCategory);
 
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);

@@ -28,12 +28,14 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        init();
 
+        presenterCart = new PresenterCart(this);
+        presenterCart.getActivityData();
+    }
+
+    void init() {
         rvCart = findViewById(R.id.rvCartView);
-
-//        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
-//        rvCart.setLayoutManager(manager);
-//        rvCart.setItemAnimator(new DefaultItemAnimator());
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -45,10 +47,8 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
         pd.setMessage("Fetching data from the database!");
         pd.setCancelable(false);
         showDialog();
-
-        presenterCart = new PresenterCart(this);
-        presenterCart.getActivityData();
     }
+
 
     public void eventHandler(View view) {
 

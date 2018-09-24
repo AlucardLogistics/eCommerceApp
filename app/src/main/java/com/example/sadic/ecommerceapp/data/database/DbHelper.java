@@ -66,7 +66,7 @@ public class DbHelper implements IDbHelper {
         Cursor c = database.query(CartContract.ProductEntry.TABLE_NAME, null, null, null, null, null, null);
         List<CartProduct> cartProductList = new ArrayList<>();
         CartProduct cartProduct;
-
+        
         int idColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_ID);
         int nameColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_NAME);
         int quantityColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_QUANTITY);
@@ -91,34 +91,5 @@ public class DbHelper implements IDbHelper {
         }
     }
 
-//    @Override
-//    public void getAllData(IDataManager.OnResponseListener listener) {
-//
-//        Cursor c = database.query(CartContract.ProductEntry.TABLE_NAME, null, null, null, null, null, null);
-//        CartProduct cartProduct = null;
-//
-//        int idColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_ID);
-//        int nameColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_NAME);
-//        int quantityColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_QUANTITY);
-//        int priceColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_PRICE);
-//        int descriptionColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_DESCRIPTION);
-//        int imagePathColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IMAGE_PATH);
-//        int isCartColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IS_CART);
-//        int isWishColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IS_WISHLIST);
-//
-//        //loop
-//        if(c != null && c.moveToFirst()) {
-//            do {
-//                cartProduct = new CartProduct(c.getString(idColumnIndex),
-//                        c.getString(nameColumnIndex), c.getString(quantityColumnIndex),
-//                        c.getString(priceColumnIndex), c.getString(descriptionColumnIndex),
-//                        c.getString(imagePathColumnIndex), c.getInt(isCartColumnIndex),
-//                        c.getInt(isWishColumnIndex));
-//            } while (c.moveToNext());
-//        }
-//
-//        listener.getCartProduct(cartProduct);
-//
-//    }
 
 }

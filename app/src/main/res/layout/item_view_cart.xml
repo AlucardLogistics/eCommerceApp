@@ -53,12 +53,22 @@ android:orientation="vertical">
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvCartPrice"
+                android:id="@+id/tvCartRemove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="10dp"
+                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
+                android:text="Remove"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCartPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ivCartImage"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="Price"
                 android:textStyle="bold" />
 

@@ -2,7 +2,7 @@ package com.example.sadic.ecommerceapp.data.database.model;
 
 public class CartProduct {
 
-    String pId, pName, pQuantity, pPrice, pDescription, pThumbPath;
+    String id, pId, pName, pQuantity, pPrice, pDescription, pThumbPath;
     int isCart, isWish;
 
     public CartProduct() {
@@ -18,6 +18,27 @@ public class CartProduct {
         this.pThumbPath = pThumbPath;
         this.isCart = isCart;
         this.isWish = isWish;
+    }
+
+    public CartProduct(String id, String pId, String pName, String pQuantity, String pPrice,
+                       String pDescription, String pThumbPath, int isCart, int isWish) {
+        this.id = id;
+        this.pId = pId;
+        this.pName = pName;
+        this.pQuantity = pQuantity;
+        this.pPrice = pPrice;
+        this.pDescription = pDescription;
+        this.pThumbPath = pThumbPath;
+        this.isCart = isCart;
+        this.isWish = isWish;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getpId() {

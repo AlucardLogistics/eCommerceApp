@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.sadic.ecommerceapp.R;
+import com.example.sadic.ecommerceapp.data.database.DbHelper;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 import com.squareup.picasso.Picasso;
 
@@ -21,6 +22,7 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
 
     Context context;
     List<CartProduct> cartProductList;
+    DbHelper dbHelper;
 
     public RecyclerViewCartAdapter(Context context, List<CartProduct> cartProductList) {
         this.context = context;
@@ -39,9 +41,9 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final CartViewHolder holder, int position) {
         Log.d(TAG, "onBindViewHolder: started");
-        CartProduct cartProduct = cartProductList.get(position);
+        final CartProduct cartProduct = cartProductList.get(position);
 
         if(cartProduct.getIsCart() == 1) {
             holder.tvCartName.setText("Name:" + cartProduct.getpName());
@@ -50,10 +52,26 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
             Picasso.get().load(cartProduct.getpThumbPath())
                     .placeholder(R.drawable.placeholder)
                     .into(holder.ivCartImage);
+
+            holder.tvCartRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dbHelper = new DbHelper(context);
+                    int pos = holder.getAdapterPosition();
+                    dbHelper.deleteCartOrWishRow(cartProduct.getpName(), 1, 0);
+                    cartProductList.remove(pos);
+                    notifyItemRemoved(pos);
+                    notifyItemRangeChanged(pos, cartProductList.size());
+                    notifyDataSetChanged();
+                }
+            });
+
         } else if(cartProduct.getIsCart() == 0) {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+
+
 
 
     }
@@ -65,7 +83,7 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
 
     public class CartViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvCartName, tvCartPrice, tvCartDescription;
+        TextView tvCartName, tvCartPrice, tvCartDescription, tvCartRemove;
         ImageView ivCartImage;
 
         public CartViewHolder(View itemView) {
@@ -74,6 +92,7 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
             tvCartName = itemView.findViewById(R.id.tvCartName);
             tvCartPrice = itemView.findViewById(R.id.tvCartPrice);
             tvCartDescription = itemView.findViewById(R.id.tvCartDescription);
+            tvCartRemove = itemView.findViewById(R.id.tvCartRemove);
             ivCartImage = itemView.findViewById(R.id.ivCartImage);
         }
     }
