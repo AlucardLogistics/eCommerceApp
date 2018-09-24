@@ -31,6 +31,9 @@ public class PresenterDetail implements IPresenterDetail {
             case R.id.btAddCart:
                 dataManager.createRow(cartProduct);
                 break;
+            case R.id.btWishList:
+                dataManager.createRow(cartProduct);
+                break;
         }
     }
 

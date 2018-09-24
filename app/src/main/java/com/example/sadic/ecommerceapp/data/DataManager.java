@@ -38,21 +38,15 @@ public class DataManager implements IDataManager {
     }
 
     @Override
-    public void deleteRow() {
-
+    public void deleteCartOrWishRow(String pId, int cartCode, int wishCode) {
+        dbHelper.deleteCartOrWishRow(pId, cartCode, wishCode);
     }
+
 
     @Override
     public void getAllData(OnResponseListener listener) {
         dbHelper.getAllData(listener);
     }
-
-
-//    @Override
-//    public void getAllData(OnResponseListener listener) {
-//
-//    }
-
 
     /* NETWORK IMPLEMENTATION */
 

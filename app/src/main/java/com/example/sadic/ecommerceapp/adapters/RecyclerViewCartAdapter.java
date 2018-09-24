@@ -50,6 +50,9 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
             Picasso.get().load(cartProduct.getpThumbPath())
                     .placeholder(R.drawable.placeholder)
                     .into(holder.ivCartImage);
+        } else if(cartProduct.getIsCart() == 0) {
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
 
 

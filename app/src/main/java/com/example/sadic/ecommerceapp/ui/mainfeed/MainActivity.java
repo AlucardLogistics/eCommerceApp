@@ -24,6 +24,7 @@ import com.example.sadic.ecommerceapp.ui.cart.CartActivity;
 import com.example.sadic.ecommerceapp.ui.category.CategoryActivity;
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
+import com.example.sadic.ecommerceapp.ui.wishlist.WishListActivity;
 
 
 import java.util.List;
@@ -144,6 +145,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_order_history) {
 
         } else if (id == R.id.nav_wish_list) {
+            Intent wishListIntent = new Intent(MainActivity.this, WishListActivity.class);
+            startActivity(wishListIntent);
 
         } else if (id == R.id.nav_viewed_items) {
 

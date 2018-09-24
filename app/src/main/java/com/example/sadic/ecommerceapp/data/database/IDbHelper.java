@@ -12,6 +12,7 @@ public interface IDbHelper {
     void createRow(CartProduct cartProduct);
     void readRow();
     void updateRow();
-    void deleteRow();
+    //void deleteCartRow(String pId, int cartCode);
+    void deleteCartOrWishRow(String pId, int cartCode, int wishCode);
     void getAllData(IDataManager.OnResponseListener listener);
 }

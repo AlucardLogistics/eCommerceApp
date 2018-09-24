@@ -3,8 +3,8 @@
     package="com.example.sadic.ecommerceapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".utils.AppController"
@@ -29,7 +29,8 @@
         <activity android:name=".ui.category.CategoryActivity" />
         <activity android:name=".ui.product_detail.DetailActivity" />
         <activity android:name=".ui.subcategory.SubCategoryActivity" />
-        <activity android:name=".ui.cart.CartActivity"></activity>
+        <activity android:name=".ui.cart.CartActivity" />
+        <activity android:name=".ui.wishlist.WishListActivity"></activity>
     </application>
 
 </manifest>

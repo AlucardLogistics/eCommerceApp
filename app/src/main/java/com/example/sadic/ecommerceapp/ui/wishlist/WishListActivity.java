@@ -1,35 +1,38 @@
-package com.example.sadic.ecommerceapp.ui.cart;
+package com.example.sadic.ecommerceapp.ui.wishlist;
 
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.example.sadic.ecommerceapp.R;
-import com.example.sadic.ecommerceapp.adapters.RecyclerViewCartAdapter;
+import com.example.sadic.ecommerceapp.adapters.RecyclerViewWishListAdapter;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 
 import java.util.List;
 
-public class CartActivity extends AppCompatActivity implements IViewCart {
-    private static final String TAG = "CartActivity";
+public class WishListActivity extends AppCompatActivity implements IViewWishList {
 
-    IPresenterCart presenterCart;
-    RecyclerView rvCart;
-    RecyclerViewCartAdapter adapter;
+    IPresenterWishList presenterWishList;
+    RecyclerView rvWishList;
+    RecyclerViewWishListAdapter adapter;
     ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate: started");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cart);
+        setContentView(R.layout.activity_wish_list);
 
+        init();
 
-        rvCart = findViewById(R.id.rvCartView);
+        presenterWishList = new PresenterWishList(this);
+        presenterWishList.getActivityData();
+    }
+
+    private void init() {
+        rvWishList = findViewById(R.id.rvWishListView);
 
 //        RecyclerView.LayoutManager manager = new LinearLayoutManager(getApplicationContext());
 //        rvCart.setLayoutManager(manager);
@@ -37,7 +40,7 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rvCart.setLayoutManager(layoutManager);
+        rvWishList.setLayoutManager(layoutManager);
 
 
         pd = new ProgressDialog(this);
@@ -45,21 +48,16 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
         pd.setMessage("Fetching data from the database!");
         pd.setCancelable(false);
         showDialog();
-
-        presenterCart = new PresenterCart(this);
-        presenterCart.getActivityData();
     }
 
     public void eventHandler(View view) {
-
+        presenterWishList.onButtonClicked(view);
     }
 
     @Override
     public void showCartList(List<CartProduct> cartProductList) {
-        adapter = new RecyclerViewCartAdapter(this, cartProductList);
-        Log.d(TAG, "showCartList: cartProductList: " + cartProductList.toString());
-        Log.d(TAG, "showCartList: adapter " + adapter.getItemCount());
-        rvCart.setAdapter(adapter);
+        adapter = new RecyclerViewWishListAdapter(this, cartProductList);
+        rvWishList.setAdapter(adapter);
         dismissDialog();
     }
 

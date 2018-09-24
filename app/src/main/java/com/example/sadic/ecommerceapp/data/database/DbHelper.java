@@ -49,8 +49,13 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
-    public void deleteRow() {
-
+    public void deleteCartOrWishRow(String name, int cartCode, int wishCode) {
+        String table = CartContract.ProductEntry.TABLE_NAME;
+        String where = CartContract.ProductEntry.COLUMN_NAME + "=? AND "
+                + CartContract.ProductEntry.COLUMN_IS_CART + "=? AND "
+                + CartContract.ProductEntry.COLUMN_IS_WISHLIST + "=?";
+        String[] whereArgs = new String[] {name, String.valueOf(cartCode), String.valueOf(wishCode)};
+        database.delete(table, where, whereArgs);
     }
 
     @Override
