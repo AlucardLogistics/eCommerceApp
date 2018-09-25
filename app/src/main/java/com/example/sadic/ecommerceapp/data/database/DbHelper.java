@@ -70,6 +70,41 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
+    public void getCartOnlyData(IDataManager.OnResponseListener cartListener, int cartCode) {
+        String table = CartContract.ProductEntry.TABLE_NAME;
+        String columns = CartContract.ProductEntry.COLUMN_IS_CART;
+        String[] whereArgs = new String[] {String.valueOf(cartCode)};
+        String query = "SELECT * FROM " + table + " WHERE " + columns + " =? ";
+        Cursor c = database.rawQuery(query, whereArgs);
+        //Cursor c = database.query(table, columns, "cart_code=?", whereArgs, null, null, null, null);
+        List<CartProduct> cartProductList = new ArrayList<>();
+        CartProduct cartProduct;
+        int idTableColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry._ID);
+        int idColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_ID);
+        int nameColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_NAME);
+        int quantityColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_QUANTITY);
+        int priceColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_PRICE);
+        int descriptionColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_DESCRIPTION);
+        int imagePathColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IMAGE_PATH);
+        int isCartColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IS_CART);
+        int isWishColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_IS_WISHLIST);
+
+        //loop
+        if(c != null && c.moveToFirst()) {
+            do {
+                cartProduct = new CartProduct(c.getString(idTableColumnIndex),c.getString(idColumnIndex),
+                        c.getString(nameColumnIndex), c.getString(quantityColumnIndex),
+                        c.getString(priceColumnIndex), c.getString(descriptionColumnIndex),
+                        c.getString(imagePathColumnIndex), c.getInt(isCartColumnIndex),
+                        c.getInt(isWishColumnIndex));
+                Log.d(TAG, "getAllData: cartProduct: " + cartProduct.toString());
+                cartProductList.add(cartProduct);
+                cartListener.getCartOnlyList(cartProductList);
+            } while (c.moveToNext());
+        }
+    }
+
+    @Override
     public void getAllData(IDataManager.OnResponseListener listener) {
         Log.d(TAG, "getAllData: started");
 
@@ -101,6 +136,5 @@ public class DbHelper implements IDbHelper {
             } while (c.moveToNext());
         }
     }
-
 
 }

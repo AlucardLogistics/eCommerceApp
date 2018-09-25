@@ -15,6 +15,8 @@ public class SharedPref {
     public static final String EMAIL = "EMAIL";
     public static final String MOBILE = "MOBILE";
     public static final String API_KEY = "API_KEY";
+    public static final String CART_ITEMS = "CART_ITEMS";
+    public static final String WISH_ITEMS = "WISH_ITEMS";
 
     private SharedPref()
     {

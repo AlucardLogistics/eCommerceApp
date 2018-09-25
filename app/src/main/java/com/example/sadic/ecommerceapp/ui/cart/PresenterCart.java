@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.example.sadic.ecommerceapp.data.DataManager;
 import com.example.sadic.ecommerceapp.data.IDataManager;
+import com.example.sadic.ecommerceapp.data.database.DbHelper;
+import com.example.sadic.ecommerceapp.data.database.IDbHelper;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 
 import java.util.List;
@@ -24,6 +26,7 @@ public class PresenterCart implements IPresenterCart, IDataManager.OnResponseLis
     public void getActivityData() {
         Log.d(TAG, "getActivityData: started");
         dataManager.getAllData(this);
+        dataManager.getCartOnlyData(this, 1);
     }
 
     @Override
@@ -36,6 +39,14 @@ public class PresenterCart implements IPresenterCart, IDataManager.OnResponseLis
     @Override
     public void getCartProductList(List<CartProduct> cartProductList) {
         Log.d(TAG, "getCartProductList: cartProductList: " + cartProductList.toString());
-        iView.showCartList(cartProductList);
+        //iView.showCartList(cartProductList);
     }
+
+    @Override
+    public void getCartOnlyList(List<CartProduct> cartOnlyProductList) {
+        Log.d(TAG, "getCartOnlyList: cartProductList: " + cartOnlyProductList);
+        iView.showCartList(cartOnlyProductList);
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.sadic.ecommerceapp.ui.cart;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,8 @@ import android.view.View;
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.adapters.RecyclerViewCartAdapter;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
+import com.example.sadic.ecommerceapp.ui.mainfeed.MainActivity;
+import com.example.sadic.ecommerceapp.utils.SharedPref;
 
 import java.util.List;
 
@@ -21,6 +25,7 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
     RecyclerView rvCart;
     RecyclerViewCartAdapter adapter;
     ProgressDialog pd;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,10 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
         Log.d(TAG, "showCartList: adapter " + adapter.getItemCount());
         rvCart.setAdapter(adapter);
         dismissDialog();
+        SharedPref.init(context);
+        SharedPref.write(SharedPref.CART_ITEMS, cartProductList.size());
+        Log.d(TAG, "showCartList: CARTSIZE_SharePref: "
+                + SharedPref.read(SharedPref.CART_ITEMS, 0));
     }
 
     private void showDialog() {

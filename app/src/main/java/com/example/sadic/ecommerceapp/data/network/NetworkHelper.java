@@ -2,6 +2,7 @@ package com.example.sadic.ecommerceapp.data.network;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -83,6 +84,9 @@ public class NetworkHelper implements INetworkHelper {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                            alertDialog.setTitle("Connection time out.");
+                            alertDialog.setMessage("Check your internet connection.");
                             Log.d(TAG, "onResponse: started");
                             //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }

@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,10 +19,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.adapters.RecyclerViewProductAdapter;
+import com.example.sadic.ecommerceapp.data.database.DbHelper;
+import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 import com.example.sadic.ecommerceapp.ui.cart.CartActivity;
 import com.example.sadic.ecommerceapp.ui.category.CategoryActivity;
 import com.example.sadic.ecommerceapp.R;
@@ -40,7 +46,9 @@ public class MainActivity extends AppCompatActivity
     RecyclerViewProductAdapter adapter;
     ProgressDialog pd;
     IPresenterMain presenterMain;
-    TextView tvMenuName, tvMenuEmail;
+    TextView tvMenuName, tvMenuEmail, tvItemCount;
+    int cartCount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +80,7 @@ public class MainActivity extends AppCompatActivity
         pd.setMessage("Fetching data from the database!");
         pd.setCancelable(false);
         showDialog();
+        //setupBadge();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +100,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+
+        //setup name and email of nav bar
         View header = navigationView.getHeaderView(0);
         tvMenuName = header.findViewById(R.id.tvMenuName);
         tvMenuEmail = header.findViewById(R.id.tvMenuEmail);
@@ -118,7 +130,37 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        View cartTest = menu.findItem(R.id.action_cart).getActionView();
+        tvItemCount = cartTest.findViewById(R.id.cart_badge);
+        tvItemCount.setText(String.valueOf(cartCount));
+        tvItemCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(cartIntent);
+            }
+        });
+        setupBadge();
         return true;
+    }
+
+    void setupBadge() {
+        SharedPref.init(this);
+        cartCount = SharedPref.read(SharedPref.CART_ITEMS, 0);
+        Log.d(TAG, "setupBadge: cartCOunt: " + cartCount);
+        if(tvItemCount != null) {
+            if(cartCount == 0) {
+                if(tvItemCount.getVisibility() != View.GONE) {
+                    tvItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                tvItemCount.setText(String.valueOf(cartCount));
+                if(tvItemCount.getVisibility() != View.VISIBLE) {
+                    tvItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
     }
 
     @Override
@@ -143,6 +185,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(cartIntent);
             return true;
         }
+//        } else if (id == R.id.action_cart_test) {
+//            Toast.makeText(this, "cart badge", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }

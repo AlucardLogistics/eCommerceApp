@@ -15,5 +15,6 @@ public interface IDbHelper {
     //void deleteCartRow(String pId, int cartCode);
     void deleteCartOrWishRow(String name, int cartCode, int wishCode);
     void deleteCartOrWishRowWithId(int id, String pId, int cartCode, int wishCode);
+    void getCartOnlyData(IDataManager.OnResponseListener cartListener, int cartCode);
     void getAllData(IDataManager.OnResponseListener listener);
 }

@@ -20,7 +20,8 @@ public class PresenterWishList implements IPresenterWishList, IDataManager.OnRes
 
     @Override
     public void getActivityData() {
-        dataManager.getAllData(this);
+        //dataManager.getAllData(this);
+        dataManager.getCartOnlyData(this, 0);
     }
 
     @Override
@@ -30,6 +31,13 @@ public class PresenterWishList implements IPresenterWishList, IDataManager.OnRes
 
     @Override
     public void getCartProductList(List<CartProduct> cartProductList) {
-        iView.showCartList(cartProductList);
+        //iView.showCartList(cartProductList);
     }
+
+    @Override
+    public void getCartOnlyList(List<CartProduct> cartOnlyProductList) {
+        iView.showCartList(cartOnlyProductList);
+    }
+
+
 }

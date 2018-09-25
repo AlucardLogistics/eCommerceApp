@@ -8,8 +8,6 @@ import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 import com.example.sadic.ecommerceapp.data.network.INetworkHelper;
 import com.example.sadic.ecommerceapp.data.network.NetworkHelper;
 
-import java.util.List;
-
 public class DataManager implements IDataManager {
 
     INetworkHelper networkHelper;
@@ -47,11 +45,17 @@ public class DataManager implements IDataManager {
         dbHelper.deleteCartOrWishRowWithId(id, pId, cartCode, wishCode);
     }
 
+    @Override
+    public void getCartOnlyData(OnResponseListener cartListener, int cartCode) {
+        dbHelper.getCartOnlyData(cartListener, cartCode);
+    }
+
 
     @Override
     public void getAllData(OnResponseListener listener) {
         dbHelper.getAllData(listener);
     }
+
 
     /* NETWORK IMPLEMENTATION */
 

@@ -1,12 +1,15 @@
 package com.example.sadic.ecommerceapp.ui;
 
 import android.util.Log;
+import android.view.Menu;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
 import com.example.sadic.ecommerceapp.ui.mainfeed.MainActivity;
 import com.example.sadic.ecommerceapp.utils.AppController;
@@ -77,5 +80,7 @@ public class ASD {
 //        //AppController.getInstance().addToRequestQueue(jsonObject);
 //
 //    }
+
+
 
 }

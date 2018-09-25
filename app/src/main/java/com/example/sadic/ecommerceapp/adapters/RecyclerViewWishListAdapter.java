@@ -45,8 +45,6 @@ public class RecyclerViewWishListAdapter extends RecyclerView.Adapter<RecyclerVi
     public void onBindViewHolder(@NonNull final WishListViewHolder holder, final int position) {
         final CartProduct cartProduct = cartProductList.get(position);
 
-        if(cartProduct.getIsWish() == 1) {
-
             holder.tvWishName.setText(cartProduct.getpName());
             holder.tvWishPrice.setText("Price: " + cartProduct.getpPrice());
             holder.tvWishDescription.setText(cartProduct.getpDescription());
@@ -86,10 +84,6 @@ public class RecyclerViewWishListAdapter extends RecyclerView.Adapter<RecyclerVi
                 }
             });
 
-        } else if(cartProduct.getIsWish() == 0) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        }
     }
 
     @Override

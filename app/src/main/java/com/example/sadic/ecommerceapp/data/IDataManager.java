@@ -15,7 +15,7 @@ public interface IDataManager extends INetworkHelper, IDbHelper {
     interface OnResponseListener {
         //void getCartProduct(CartProduct cartProduct);
         void getCartProductList(List<CartProduct> cartProductList);
-
+        void getCartOnlyList(List<CartProduct> cartOnlyProductList);
     }
 
     interface OnResponseProductListener {

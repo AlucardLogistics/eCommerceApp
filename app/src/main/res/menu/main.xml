@@ -18,6 +18,7 @@
         android:id="@+id/action_cart"
         android:orderInCategory="100"
         android:title="Cart"
+        app:actionLayout="@layout/custom_action_cart_layout"
         android:icon="@drawable/ic_action_cart"
         app:showAsAction="always" />
 </menu>

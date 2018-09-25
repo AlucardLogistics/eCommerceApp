@@ -45,7 +45,6 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
         Log.d(TAG, "onBindViewHolder: started");
         final CartProduct cartProduct = cartProductList.get(position);
 
-        if(cartProduct.getIsCart() == 1) {
             holder.tvCartName.setText("Name:" + cartProduct.getpName());
             holder.tvCartPrice.setText("Price: " + cartProduct.getpPrice() + " $");
             holder.tvCartDescription.setText("About: " + cartProduct.getpDescription());
@@ -68,14 +67,6 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
                     notifyDataSetChanged();
                 }
             });
-
-        } else if(cartProduct.getIsCart() == 0) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        }
-
-
-
 
     }
 
