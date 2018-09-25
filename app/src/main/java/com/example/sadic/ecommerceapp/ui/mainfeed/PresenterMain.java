@@ -1,5 +1,7 @@
 package com.example.sadic.ecommerceapp.ui.mainfeed;
 
+import android.content.Context;
+
 import com.example.sadic.ecommerceapp.data.DataManager;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
@@ -10,11 +12,13 @@ public class PresenterMain implements IPresenterMain, IDataManager.OnResponsePro
 
     IViewMain mView;
     IDataManager dataManager;
+    Context context;
 
     public PresenterMain(MainActivity mainActivity) {
 
         dataManager = new DataManager(mainActivity);
         mView = mainActivity;
+        context = mainActivity.getApplicationContext();
 
     }
 

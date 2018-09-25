@@ -56,9 +56,12 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
             holder.tvCartRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     dbHelper = new DbHelper(context);
                     int pos = holder.getAdapterPosition();
-                    dbHelper.deleteCartOrWishRow(cartProduct.getpName(), 1, 0);
+                    int posInTable = Integer.parseInt(cartProduct.getId());
+                    Log.d(TAG, "onClick: posInTable: " + posInTable);
+                    dbHelper.deleteCartOrWishRowWithId(posInTable, cartProduct.getpId(), 1, 0);
                     cartProductList.remove(pos);
                     notifyItemRemoved(pos);
                     notifyItemRangeChanged(pos, cartProductList.size());

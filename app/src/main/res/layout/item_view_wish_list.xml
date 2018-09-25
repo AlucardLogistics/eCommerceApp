@@ -78,7 +78,8 @@ android:orientation="vertical">
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginRight="10dp"
-                android:text="Close"
+                android:textColor="#f7384b"
+                android:text="Remove"
                 android:textStyle="bold"/>
 
         </RelativeLayout>

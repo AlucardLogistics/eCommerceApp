@@ -8,5 +8,8 @@ public interface INetworkHelper {
     void getSubCategories(IDataManager.OnResponseSubCategoryListener subCategoryListener);
     void getProducts(IDataManager.OnResponseProductListener productListener);
 
+    void login(IDataManager.OnLoginListener listenerLogin);
+    void register(IDataManager.OnRegisterListener listenerRegister);
+
 
 }

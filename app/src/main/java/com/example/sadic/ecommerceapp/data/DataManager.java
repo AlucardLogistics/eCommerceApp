@@ -16,7 +16,7 @@ public class DataManager implements IDataManager {
     IDbHelper dbHelper;
 
     public DataManager(Context context) {
-        networkHelper = new NetworkHelper();
+        networkHelper = new NetworkHelper(context);
         dbHelper = new DbHelper(context);
     }
 
@@ -42,6 +42,11 @@ public class DataManager implements IDataManager {
         dbHelper.deleteCartOrWishRow(pId, cartCode, wishCode);
     }
 
+    @Override
+    public void deleteCartOrWishRowWithId(int id, String pId, int cartCode, int wishCode) {
+        dbHelper.deleteCartOrWishRowWithId(id, pId, cartCode, wishCode);
+    }
+
 
     @Override
     public void getAllData(OnResponseListener listener) {
@@ -63,6 +68,16 @@ public class DataManager implements IDataManager {
     @Override
     public void getProducts(OnResponseProductListener productListener) {
         networkHelper.getProducts(productListener);
+    }
+
+    @Override
+    public void login(OnLoginListener listenerLogin) {
+        networkHelper.login(listenerLogin);
+    }
+
+    @Override
+    public void register(OnRegisterListener listenerRegister) {
+        networkHelper.register(listenerRegister);
     }
 
 

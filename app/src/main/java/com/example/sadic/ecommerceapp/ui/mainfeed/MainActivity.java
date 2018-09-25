@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.adapters.RecyclerViewProductAdapter;
@@ -24,7 +25,9 @@ import com.example.sadic.ecommerceapp.ui.cart.CartActivity;
 import com.example.sadic.ecommerceapp.ui.category.CategoryActivity;
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
+import com.example.sadic.ecommerceapp.ui.login.LoginActivity;
 import com.example.sadic.ecommerceapp.ui.wishlist.WishListActivity;
+import com.example.sadic.ecommerceapp.utils.SharedPref;
 
 
 import java.util.List;
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerViewProductAdapter adapter;
     ProgressDialog pd;
     IPresenterMain presenterMain;
+    TextView tvMenuName, tvMenuEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +90,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        tvMenuName = header.findViewById(R.id.tvMenuName);
+        tvMenuEmail = header.findViewById(R.id.tvMenuEmail);
+
+        SharedPref.init(this);
+        tvMenuName.setText(SharedPref.read(SharedPref.FIRST_NAME, null) + " "
+                + SharedPref.read(SharedPref.LAST_NAME,null));
+        tvMenuEmail.setText(SharedPref.read(SharedPref.EMAIL, null));
+
     }
 
 
@@ -156,7 +170,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_viewed_items) {
 
         } else if (id == R.id.nav_account) {
-
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_contact) {

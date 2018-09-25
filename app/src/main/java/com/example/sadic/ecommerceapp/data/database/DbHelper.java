@@ -59,14 +59,25 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
+    public void deleteCartOrWishRowWithId(int id, String pId, int cartCode, int wishCode) {
+        String table = CartContract.ProductEntry.TABLE_NAME;
+        String where = CartContract.ProductEntry._ID + "=? AND "
+                + CartContract.ProductEntry.COLUMN_ID + "=? AND "
+                + CartContract.ProductEntry.COLUMN_IS_CART + "=? AND "
+                + CartContract.ProductEntry.COLUMN_IS_WISHLIST + "=?";
+        String[] whereArgs = new String[] {String.valueOf(id) ,pId, String.valueOf(cartCode), String.valueOf(wishCode)};
+        database.delete(table, where, whereArgs);
+    }
+
+    @Override
     public void getAllData(IDataManager.OnResponseListener listener) {
         Log.d(TAG, "getAllData: started");
 
-        Cursor cu = database.rawQuery("SELECT * FROM " + CartContract.ProductEntry.TABLE_NAME, null);
+        //Cursor cu = database.rawQuery("SELECT * FROM " + CartContract.ProductEntry.TABLE_NAME, null);
         Cursor c = database.query(CartContract.ProductEntry.TABLE_NAME, null, null, null, null, null, null);
         List<CartProduct> cartProductList = new ArrayList<>();
         CartProduct cartProduct;
-        
+        int idTableColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry._ID);
         int idColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_ID);
         int nameColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_NAME);
         int quantityColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry.COLUMN_QUANTITY);
@@ -79,7 +90,7 @@ public class DbHelper implements IDbHelper {
         //loop
         if(c != null && c.moveToFirst()) {
             do {
-                cartProduct = new CartProduct(c.getString(idColumnIndex),
+                cartProduct = new CartProduct(c.getString(idTableColumnIndex),c.getString(idColumnIndex),
                         c.getString(nameColumnIndex), c.getString(quantityColumnIndex),
                         c.getString(priceColumnIndex), c.getString(descriptionColumnIndex),
                         c.getString(imagePathColumnIndex), c.getInt(isCartColumnIndex),
