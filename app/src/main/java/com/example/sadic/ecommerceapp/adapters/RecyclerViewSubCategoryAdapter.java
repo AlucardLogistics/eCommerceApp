@@ -39,10 +39,14 @@ public class RecyclerViewSubCategoryAdapter extends RecyclerView.Adapter<Recycle
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_view_sub_category, parent, false);
         final SubCategoryViewHolder svh = new SubCategoryViewHolder(v);
+
+        //ImageView ivImageCustom = v.findViewById(R.id.ivThumbSubCat);
+       // final SubCategoryViewHolder svh = new SubCategoryViewHolder(ivImageCustom);
+
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onItemClick(v, svh.getPosition());
+                listener.onItemClick(v, svh.getLayoutPosition());
             }
         });
 

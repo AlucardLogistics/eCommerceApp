@@ -152,6 +152,13 @@ public class MainActivity extends AppCompatActivity
         setupBadge();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     public int setupBadge() {
         SharedPref.init(this);
         cartCount = SharedPref.read(SharedPref.CART_ITEMS, 0);

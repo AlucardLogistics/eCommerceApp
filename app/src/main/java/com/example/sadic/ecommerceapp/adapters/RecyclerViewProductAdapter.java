@@ -54,9 +54,9 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
         final String pDescription = product.getpDescription();
         final String pImgUrl = product.getpThumbUrl();
 
-        holder.tvId.setText("Id: " + product.getpId());
+        //holder.tvId.setText("Id: " + product.getpId());
         holder.tvName.setText(product.getpName());
-        holder.tvQuantity.setText("Quantity: " + product.getpQuantity());
+        holder.tvQuantity.setText("Items In Stock: " + product.getpQuantity());
         holder.tvPrice.setText("Price: " + product.getpPrice());
         holder.tvDescription.setText(product.getpDescription());
 
@@ -95,7 +95,7 @@ public class RecyclerViewProductAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public ProductViewHolder(View itemView) {
             super(itemView);
-            this.tvId = itemView.findViewById(R.id.tvIdProd);
+            //this.tvId = itemView.findViewById(R.id.tvIdProd);
             this.tvName = itemView.findViewById(R.id.tvNameProd);
             this.tvQuantity = itemView.findViewById(R.id.tvQuantityProd);
             this.tvPrice = itemView.findViewById(R.id.tvPriceProd);

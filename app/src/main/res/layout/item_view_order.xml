@@ -37,7 +37,7 @@ android:orientation="vertical">
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ivOrderImage"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:text="Name"
                 android:textStyle="bold" />
 
@@ -45,12 +45,47 @@ android:orientation="vertical">
                 android:id="@+id/tvOrderPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="20dp"
                 android:layout_alignBottom="@id/ivCartImage"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_toLeftOf="@id/ivOrderAddWishList"
                 android:text="Price"
                 android:textStyle="bold" />
+
+            <!--<TextView-->
+                <!--android:id="@+id/tvOrderRemove"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:layout_alignBottom="@id/ivCartImage"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:textColor="@android:color/holo_red_dark"-->
+                <!--android:text="X"-->
+                <!--android:textStyle="bold" />-->
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/ivOrderAddWishList"
+                android:layout_marginRight="15dp"
+                android:layout_alignBottom="@id/ivCartImage"
+                android:layout_toLeftOf="@id/btOrderRemove"
+                android:layout_marginTop="15dp"
+                android:elevation="10dp"
+                android:src="@drawable/ic_menu_wish_list_red"/>
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:id="@+id/btOrderRemove"
+                android:layout_marginRight="5dp"
+                android:layout_alignBottom="@id/ivCartImage"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_round_background"
+                android:textColor="@android:color/white"
+                android:text="X"/>
 
 
         </RelativeLayout>

@@ -56,6 +56,14 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
         showDialog();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
+
 
     public void eventHandler(View view) {
         presenterCart.onButtonClicked(view);

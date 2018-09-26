@@ -1,6 +1,7 @@
 package com.example.sadic.ecommerceapp.ui.product_detail;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
+import com.example.sadic.ecommerceapp.utils.SharedPref;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -34,6 +36,7 @@ public class DetailActivity extends AppCompatActivity implements IViewDetail {
     ImageView ivImageDetail;
     IPresenterDetail presenterDetail;
     Uri outputFileUri;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,14 +174,22 @@ public class DetailActivity extends AppCompatActivity implements IViewDetail {
         switch (view.getId()) {
             case R.id.btAddCart:
                 Log.d(TAG, "eventHandler: btAddCart: " + getCartProductObject().toString());
-                presenterDetail.onButtonClickHandler(view, getCartProductObject());
+                updateCart();
+                presenterDetail.onButtonClickHandler(view, getCartProductObject(), this);
                 break;
             case R.id.btWishList:
-                presenterDetail.onButtonClickHandler(view, getWishProductObject());
+                presenterDetail.onButtonClickHandler(view, getWishProductObject(), this);
                 break;
         }
 
 
+    }
+
+    public void updateCart() {
+        SharedPref.init(this);
+        int cart = SharedPref.read(SharedPref.CART_ITEMS, 0);
+        cart = cart + 1;
+        SharedPref.write(SharedPref.CART_ITEMS, cart);
     }
 
     void checkPermissions() {

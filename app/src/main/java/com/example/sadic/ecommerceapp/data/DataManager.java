@@ -26,6 +26,11 @@ public class DataManager implements IDataManager {
     }
 
     @Override
+    public void createWishRow(CartProduct cartProduct,String pId, int wishCode) {
+        dbHelper.createWishRow(cartProduct,pId, wishCode);
+    }
+
+    @Override
     public void readRow() {
 
     }

@@ -138,6 +138,7 @@ public class NetworkHelper implements INetworkHelper {
 
     @Override
     public void getSubCategories(final IDataManager.OnResponseSubCategoryListener subCategoryListener) {
+        Log.d(TAG, "getSubCategories: started");
 
         SharedPref.init(context);
         String id = SharedPref.read(SharedPref.ID, null);
@@ -183,6 +184,8 @@ public class NetworkHelper implements INetworkHelper {
                                             new SubCategory(scId, scName, scDescription, scThumbImgUrl);
                                     subCategoryList.add(subCategory);
                                     //add response
+                                    Log.d(TAG, "onResponse: subCategotry: " + subCategoryList.size());
+                                    Log.d(TAG, "onResponse: listener: " + subCategoryListener);
                                     subCategoryListener.getSubCategories(subCategoryList);
                                     //rvProduct.setAdapter(adapter);
                                 }
@@ -242,7 +245,7 @@ public class NetworkHelper implements INetworkHelper {
                         Log.d(TAG, "onResponse: started");
 
                         if(response != null) {
-                            pd.hide();
+                            pd.dismiss();
                             try {
                                 Log.d(TAG, "onResponse: try block");
                                 JSONArray prodArray = response.getJSONArray("products");

@@ -38,6 +38,13 @@ public class OrderActivity extends AppCompatActivity implements IViewOrders{
         presenterOrders.getActivityData();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
+    }
+
     private void init() {
 
         rvOrder = findViewById(R.id.rvOrder);

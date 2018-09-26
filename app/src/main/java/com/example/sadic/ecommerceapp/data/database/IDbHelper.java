@@ -10,6 +10,7 @@ import java.util.List;
 public interface IDbHelper {
 
     void createRow(CartProduct cartProduct);
+    void createWishRow(CartProduct cartProduct,String pId, int wishCode);
     void readRow();
     void updateRow();
     //void deleteCartRow(String pId, int cartCode);

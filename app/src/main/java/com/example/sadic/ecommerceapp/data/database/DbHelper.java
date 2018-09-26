@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.database.model.CartContract;
@@ -27,6 +28,7 @@ public class DbHelper implements IDbHelper {
     public DbHelper(Context context) {
         this.dbOpenHelper = new DbOpenHelper(context);
         this.database = dbOpenHelper.getWritableDatabase();
+        this.context = context;
     }
 
     @Override
@@ -41,6 +43,40 @@ public class DbHelper implements IDbHelper {
         cv.put(CartContract.ProductEntry.COLUMN_IS_CART, cartProduct.getIsCart());
         cv.put(CartContract.ProductEntry.COLUMN_IS_WISHLIST, cartProduct.getIsWish());
         database.insert(CartContract.ProductEntry.TABLE_NAME, null, cv);
+    }
+
+    @Override
+    public void createWishRow(CartProduct cartProduct, String pId, int wishCode) {
+        Log.d(TAG, "createWishRow: started");
+        String table = CartContract.ProductEntry.TABLE_NAME;
+        String where = CartContract.ProductEntry.COLUMN_ID + "=? AND "
+                + CartContract.ProductEntry.COLUMN_IS_WISHLIST + "=?";
+
+        String[] columns = {CartContract.ProductEntry.COLUMN_ID, CartContract.ProductEntry.COLUMN_IS_WISHLIST};
+
+        String[] whereArgs = new String[] {pId, String.valueOf(wishCode)};
+        String query = "SELECT * FROM " + table + " WHERE " + columns + " =? AND =?";
+
+        Cursor c = database.query(table, null, where, whereArgs,
+                null, null, null);
+
+//        Cursor cc = database.rawQuery(query, whereArgs);
+        Log.d(TAG, "createWishRow: Cursor: " + c.toString());
+        if(c.moveToFirst()) {
+            Toast.makeText(context, "Product already added to wish list.", Toast.LENGTH_SHORT).show();
+        } else {
+            ContentValues cv = new ContentValues();
+            cv.put(CartContract.ProductEntry.COLUMN_ID, cartProduct.getpId());
+            cv.put(CartContract.ProductEntry.COLUMN_NAME, cartProduct.getpName());
+            cv.put(CartContract.ProductEntry.COLUMN_QUANTITY, cartProduct.getpQuantity());
+            cv.put(CartContract.ProductEntry.COLUMN_PRICE, cartProduct.getpPrice());
+            cv.put(CartContract.ProductEntry.COLUMN_DESCRIPTION, cartProduct.getpDescription());
+            cv.put(CartContract.ProductEntry.COLUMN_IMAGE_PATH, cartProduct.getpThumbPath());
+            cv.put(CartContract.ProductEntry.COLUMN_IS_CART, cartProduct.getIsCart());
+            cv.put(CartContract.ProductEntry.COLUMN_IS_WISHLIST, cartProduct.getIsWish());
+            database.insert(CartContract.ProductEntry.TABLE_NAME, null, cv);
+            Toast.makeText(context, "Added to wish list.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -122,6 +158,7 @@ public class DbHelper implements IDbHelper {
             cartListener.getCartOnlyList(cartProductList);
             Log.d(TAG, "getCartOnlyData: else stuff");
         }
+        c.close();
 
     }
 
@@ -159,6 +196,8 @@ public class DbHelper implements IDbHelper {
                 listener.getCartProductList(cartProductList);
             } while (c.moveToNext());
         }
+
+        c.close();
     }
 
 }

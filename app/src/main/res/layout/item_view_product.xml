@@ -15,7 +15,7 @@
         card_view:cardCornerRadius="5dp"
         card_view:contentPadding="10dp"
         card_view:cardElevation="5dp"
-        android:backgroundTint="#e8ebed">
+        android:backgroundTint="#f4f6f7">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,15 +28,15 @@
                 android:layout_alignParentStart="true"
                 android:src="@drawable/ic_launcher_background" />
 
-            <TextView
-                android:id="@+id/tvIdProd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignTop="@+id/ivThumbProd"
-                android:layout_marginRight="20dp"
-                android:text="productId"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/tvIdProd"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignTop="@+id/ivThumbProd"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:text="productId"-->
+                <!--android:textStyle="bold" />-->
 
             <TextView
                 android:id="@+id/tvNameProd"
@@ -52,10 +52,9 @@
                 android:id="@+id/tvQuantityProd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tvIdProd"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="pQuantity" />
 
             <TextView

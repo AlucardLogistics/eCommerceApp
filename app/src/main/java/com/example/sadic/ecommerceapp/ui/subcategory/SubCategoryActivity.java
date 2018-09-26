@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -16,11 +17,21 @@ import com.example.sadic.ecommerceapp.ui.mainfeed.MainActivity;
 
 import java.util.List;
 
-public class SubCategoryActivity extends AppCompatActivity implements IViewSubCategory {
+import javax.inject.Inject;
 
-    IPresenterSubCategory presenterSubCategory;
+import dagger.internal.DaggerCollections;
+
+public class SubCategoryActivity extends AppCompatActivity implements IViewSubCategory {
+    private static final String TAG = "SubCategoryActivity";
+
+
+
     RecyclerView rvSubCategory;
     RecyclerViewSubCategoryAdapter adapter;
+    InjectionObjects injectionObjects;
+
+    @Inject
+    PresenterSubCategory presenterSubCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +40,15 @@ public class SubCategoryActivity extends AppCompatActivity implements IViewSubCa
 
         init();
 
-        presenterSubCategory = new PresenterSubCategory(this);
+
+        injectionObjects = DaggerInjectionObjects.builder()
+                .presenterSubModule(new PresenterSubCategory(SubCategoryActivity.this))
+                .build();
+
+        injectionObjects.inject(this);
+
+        //presenterSubCategory = new PresenterSubCategory(this);
+        Log.d(TAG, "onCreate: started" + presenterSubCategory);
         presenterSubCategory.setActivityData();
     }
 

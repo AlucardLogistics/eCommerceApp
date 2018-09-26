@@ -9,5 +9,5 @@ import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
 public interface IPresenterDetail {
 
     void getProductDetails();
-    void onButtonClickHandler(View view, CartProduct cartProduct);
+    void onButtonClickHandler(View view, CartProduct cartProduct, Context context);
 }

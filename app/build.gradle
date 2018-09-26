@@ -33,4 +33,13 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //daggers
+    implementation 'com.google.dagger:dagger:2.10'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.10'
+
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 }
