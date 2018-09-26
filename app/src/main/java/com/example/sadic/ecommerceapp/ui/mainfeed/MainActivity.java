@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity
 
     RecyclerView recyclerView;
     RecyclerViewProductAdapter adapter;
-    ProgressDialog pd;
     IPresenterMain presenterMain;
     TextView tvMenuName, tvMenuEmail, tvItemCount;
     int cartCount;
@@ -75,21 +74,14 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        pd = new ProgressDialog(this);
-        pd.setTitle("My Progress Dialog");
-        pd.setMessage("Fetching data from the database!");
-        pd.setCancelable(false);
-        showDialog();
-        //setupBadge();
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -114,8 +106,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -128,11 +118,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Log.d(TAG, "onCreateOptionsMenu: started");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         View cartTest = menu.findItem(R.id.action_cart).getActionView();
         tvItemCount = cartTest.findViewById(R.id.cart_badge);
+        setupBadge();
         tvItemCount.setText(String.valueOf(cartCount));
         tvItemCount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,26 +133,42 @@ public class MainActivity extends AppCompatActivity
                 startActivity(cartIntent);
             }
         });
-        setupBadge();
+
         return true;
     }
 
-    void setupBadge() {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: started");
+        setupBadge();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+        setupBadge();
+    }
+
+    public int setupBadge() {
         SharedPref.init(this);
         cartCount = SharedPref.read(SharedPref.CART_ITEMS, 0);
         Log.d(TAG, "setupBadge: cartCOunt: " + cartCount);
-        if(tvItemCount != null) {
-            if(cartCount == 0) {
-                if(tvItemCount.getVisibility() != View.GONE) {
-                    tvItemCount.setVisibility(View.GONE);
-                }
-            } else {
-                tvItemCount.setText(String.valueOf(cartCount));
-                if(tvItemCount.getVisibility() != View.VISIBLE) {
-                    tvItemCount.setVisibility(View.VISIBLE);
-                }
-            }
-        }
+//        if(tvItemCount != null) {
+//            if(cartCount == 0) {
+//                if(tvItemCount.getVisibility() != View.GONE) {
+//                    tvItemCount.setVisibility(View.GONE);
+//                }
+//            } else {
+//                tvItemCount.setText(String.valueOf(cartCount));
+//                if(tvItemCount.getVisibility() != View.VISIBLE) {
+//                    tvItemCount.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        }
+        return cartCount;
     }
 
     @Override
@@ -185,10 +193,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(cartIntent);
             return true;
         }
-//        } else if (id == R.id.action_cart_test) {
-//            Toast.makeText(this, "cart badge", Toast.LENGTH_SHORT).show();
-//            return true;
-//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -200,13 +204,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_search) {
-            // Handle the camera action
+            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_home) {
-            // Handle the camera action
+            Intent homeIntent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(homeIntent);
         } else if (id == R.id.nav_cart) {
-
+            Intent cartIntent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(cartIntent);
         } else if (id == R.id.nav_categories) {
-
+            Intent categoryIntent = new Intent(MainActivity.this, CategoryActivity.class);
+            startActivity(categoryIntent);
         } else if (id == R.id.nav_order_history) {
 
         } else if (id == R.id.nav_wish_list) {
@@ -231,23 +238,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void showDialog() {
-        if(!pd.isShowing()) {
-            pd.show();
-        }
-    }
-
-    private void dismissDialog() {
-        if(pd.isShowing()) {
-            pd.dismiss();
-        }
-    }
 
     @Override
     public void showProductList(List<Product> productList) {
         adapter = new RecyclerViewProductAdapter(this, productList);
         recyclerView.setAdapter(adapter);
-        dismissDialog();
+        //dismissDialog();
 
     }
 }

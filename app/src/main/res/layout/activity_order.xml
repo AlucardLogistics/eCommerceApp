@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.orders.OrderActivity"
+    tools:layout_editor_absoluteY="81dp">
+
+    <TextView
+        android:id="@+id/tvUserInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Info:"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tvUser"
+        android:layout_below="@id/tvUserInfo"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvUserAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUser"
+        android:text="tvUserAddress"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/tvUserEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tvUserEmail"
+        android:layout_below="@id/tvUserAddress"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tvUserMobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tvUserMobile"
+        android:layout_below="@id/tvUserEmail"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"/>
+
+
+    <Button
+        android:id="@+id/btOrder"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:background="#ef7c35"
+        android:onClick="eventHandler"
+        android:text="Place Order"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_below="@id/rvOrder"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"/>
+
+    <TextView
+        android:id="@+id/tvTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/tvUserMobile"
+        android:text="Total Price"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginRight="10dp"
+        tools:layout_editor_absoluteX="317dp"
+        tools:layout_editor_absoluteY="101dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvOrder"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:layout_below="@id/tvUserMobile"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="70dp"
+        android:layout_height="94dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/logo_globe"
+        tools:layout_editor_absoluteX="331dp"
+        tools:layout_editor_absoluteY="2dp" />
+</RelativeLayout>

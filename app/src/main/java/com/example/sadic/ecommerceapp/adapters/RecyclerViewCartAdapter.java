@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.database.DbHelper;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
+import com.example.sadic.ecommerceapp.utils.SharedPref;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -65,6 +66,11 @@ public class RecyclerViewCartAdapter extends RecyclerView.Adapter<RecyclerViewCa
                     notifyItemRemoved(pos);
                     notifyItemRangeChanged(pos, cartProductList.size());
                     notifyDataSetChanged();
+                    //update cart badge
+                    SharedPref.init(context);
+                    int cartCount = SharedPref.read(SharedPref.CART_ITEMS, 0);
+                    cartCount = cartCount - 1;
+                    SharedPref.write(SharedPref.CART_ITEMS, cartCount);
                 }
             });
 

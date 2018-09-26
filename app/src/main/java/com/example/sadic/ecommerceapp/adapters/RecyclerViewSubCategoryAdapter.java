@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.sadic.ecommerceapp.R;
 import com.example.sadic.ecommerceapp.data.network.model.SubCategory;
+import com.example.sadic.ecommerceapp.ui.subcategory.IPresenterSubCategory;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,9 +20,15 @@ public class RecyclerViewSubCategoryAdapter extends RecyclerView.Adapter<Recycle
 
     Context context;
     List<SubCategory> subCategoryList;
+    IPresenterSubCategory listener;
 
     public RecyclerViewSubCategoryAdapter(Context context, List<SubCategory> subCategoryList) {
         this.context = context;
+        this.subCategoryList = subCategoryList;
+    }
+
+    public RecyclerViewSubCategoryAdapter(List<SubCategory> subCategoryList, IPresenterSubCategory listener) {
+        this.listener = listener;
         this.subCategoryList = subCategoryList;
     }
 
@@ -31,8 +38,15 @@ public class RecyclerViewSubCategoryAdapter extends RecyclerView.Adapter<Recycle
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_view_sub_category, parent, false);
+        final SubCategoryViewHolder svh = new SubCategoryViewHolder(v);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onItemClick(v, svh.getPosition());
+            }
+        });
 
-        return new SubCategoryViewHolder(v);
+        return svh;
     }
 
     @Override

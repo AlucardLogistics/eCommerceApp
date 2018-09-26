@@ -39,5 +39,10 @@ public class PresenterWishList implements IPresenterWishList, IDataManager.OnRes
         iView.showCartList(cartOnlyProductList);
     }
 
+    @Override
+    public void clearCart(int cartCode) {
+
+    }
+
 
 }

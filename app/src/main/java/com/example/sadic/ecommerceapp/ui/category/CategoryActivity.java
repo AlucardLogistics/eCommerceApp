@@ -1,9 +1,9 @@
 package com.example.sadic.ecommerceapp.ui.category;
 
-import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -18,7 +18,7 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
     IPresenterCategory presenterCategory;
     RecyclerView rvCategory;
     RecyclerViewCategoryAdapter adapter;
-    ProgressDialog pd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,34 +35,17 @@ public class CategoryActivity extends AppCompatActivity implements IViewCategory
     void init() {
         rvCategory = findViewById(R.id.rvCategory);
 
-        RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(this, 3);
         rvCategory.setLayoutManager(manager);
         rvCategory.setItemAnimator(new DefaultItemAnimator());
 
-
-        pd = new ProgressDialog(this);
-        pd.setTitle("My Progress Dialog");
-        pd.setMessage("Fetching data from the database!");
-        pd.setCancelable(false);
-        showDialog();
     }
 
     @Override
     public void showCategoryList(List<Category> categoryList) {
         adapter = new RecyclerViewCategoryAdapter(this, categoryList);
         rvCategory.setAdapter(adapter);
-        dismissDialog();
+        //dismissDialog();
     }
 
-    private void showDialog() {
-        if(!pd.isShowing()) {
-            pd.show();
-        }
-    }
-
-    private void dismissDialog() {
-        if(pd.isShowing()) {
-            pd.dismiss();
-        }
-    }
 }

@@ -46,6 +46,11 @@ public class DataManager implements IDataManager {
     }
 
     @Override
+    public void clearCart(OnResponseListener clearCartListener, int cartCode) {
+        dbHelper.clearCart(clearCartListener, cartCode);
+    }
+
+    @Override
     public void getCartOnlyData(OnResponseListener cartListener, int cartCode) {
         dbHelper.getCartOnlyData(cartListener, cartCode);
     }

@@ -30,7 +30,8 @@
         <activity android:name=".ui.product_detail.DetailActivity" />
         <activity android:name=".ui.subcategory.SubCategoryActivity" />
         <activity android:name=".ui.cart.CartActivity" />
-        <activity android:name=".ui.wishlist.WishListActivity"></activity>
+        <activity android:name=".ui.wishlist.WishListActivity" />
+        <activity android:name=".ui.orders.OrderActivity"></activity>
     </application>
 
 </manifest>

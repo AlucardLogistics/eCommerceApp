@@ -1,5 +1,7 @@
 package com.example.sadic.ecommerceapp.ui.subcategory;
 
+import android.view.View;
+
 import com.example.sadic.ecommerceapp.data.DataManager;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.network.model.SubCategory;
@@ -20,6 +22,11 @@ public class PresenterSubCategory implements IPresenterSubCategory, IDataManager
     @Override
     public void setActivityData() {
         dataManager.getSubCategories(this);
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+
     }
 
     @Override

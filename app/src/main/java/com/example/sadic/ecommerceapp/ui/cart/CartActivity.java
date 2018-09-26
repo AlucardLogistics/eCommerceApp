@@ -1,7 +1,9 @@
 package com.example.sadic.ecommerceapp.ui.cart;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,16 +58,20 @@ public class CartActivity extends AppCompatActivity implements IViewCart {
 
 
     public void eventHandler(View view) {
-
+        presenterCart.onButtonClicked(view);
     }
 
     @Override
     public void showCartList(List<CartProduct> cartProductList) {
         adapter = new RecyclerViewCartAdapter(this, cartProductList);
-        Log.d(TAG, "showCartList: cartProductList: " + cartProductList.toString());
         Log.d(TAG, "showCartList: adapter " + adapter.getItemCount());
         rvCart.setAdapter(adapter);
+        updateCart(cartProductList);
         dismissDialog();
+    }
+
+    private void updateCart(List<CartProduct> cartProductList) {
+        Log.d(TAG, "updateCart: started");
         SharedPref.init(context);
         SharedPref.write(SharedPref.CART_ITEMS, cartProductList.size());
         Log.d(TAG, "showCartList: CARTSIZE_SharePref: "

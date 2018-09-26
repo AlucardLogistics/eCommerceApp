@@ -1,7 +1,10 @@
 package com.example.sadic.ecommerceapp.data.database;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -9,6 +12,7 @@ import android.util.Log;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.database.model.CartContract;
 import com.example.sadic.ecommerceapp.data.database.model.CartProduct;
+import com.example.sadic.ecommerceapp.ui.mainfeed.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,7 @@ public class DbHelper implements IDbHelper {
 
     SQLiteDatabase database;
     DbOpenHelper dbOpenHelper;
+    Context context;
 
     public DbHelper(Context context) {
         this.dbOpenHelper = new DbOpenHelper(context);
@@ -37,6 +42,7 @@ public class DbHelper implements IDbHelper {
         cv.put(CartContract.ProductEntry.COLUMN_IS_WISHLIST, cartProduct.getIsWish());
         database.insert(CartContract.ProductEntry.TABLE_NAME, null, cv);
     }
+
 
     @Override
     public void readRow() {
@@ -70,13 +76,24 @@ public class DbHelper implements IDbHelper {
     }
 
     @Override
+    public void clearCart(IDataManager.OnResponseListener clearCartListener, int cartCode) {
+        Log.d(TAG, "clearCart: clearing cart");
+        String table = CartContract.ProductEntry.TABLE_NAME;
+        String where = CartContract.ProductEntry.COLUMN_IS_CART + "=?";
+        String[] whereArgs = new String[] {String.valueOf(cartCode)};
+        database.delete(table, where, whereArgs);
+        clearCartListener.clearCart(cartCode);
+    }
+
+    @Override
     public void getCartOnlyData(IDataManager.OnResponseListener cartListener, int cartCode) {
+        Log.d(TAG, "getCartOnlyData: ");
         String table = CartContract.ProductEntry.TABLE_NAME;
         String columns = CartContract.ProductEntry.COLUMN_IS_CART;
         String[] whereArgs = new String[] {String.valueOf(cartCode)};
+
         String query = "SELECT * FROM " + table + " WHERE " + columns + " =? ";
         Cursor c = database.rawQuery(query, whereArgs);
-        //Cursor c = database.query(table, columns, "cart_code=?", whereArgs, null, null, null, null);
         List<CartProduct> cartProductList = new ArrayList<>();
         CartProduct cartProduct;
         int idTableColumnIndex = c.getColumnIndexOrThrow(CartContract.ProductEntry._ID);
@@ -101,8 +118,15 @@ public class DbHelper implements IDbHelper {
                 cartProductList.add(cartProduct);
                 cartListener.getCartOnlyList(cartProductList);
             } while (c.moveToNext());
+        } else {
+            cartListener.getCartOnlyList(cartProductList);
+            Log.d(TAG, "getCartOnlyData: else stuff");
         }
+
     }
+
+
+
 
     @Override
     public void getAllData(IDataManager.OnResponseListener listener) {

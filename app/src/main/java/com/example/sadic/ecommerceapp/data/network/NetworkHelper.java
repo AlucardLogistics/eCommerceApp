@@ -1,6 +1,9 @@
 package com.example.sadic.ecommerceapp.data.network;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -15,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.sadic.ecommerceapp.data.network.model.Category;
 import com.example.sadic.ecommerceapp.data.network.model.SubCategory;
 import com.example.sadic.ecommerceapp.data.network.model.User;
+import com.example.sadic.ecommerceapp.ui.login.LoginActivity;
 import com.example.sadic.ecommerceapp.utils.AppController;
 import com.example.sadic.ecommerceapp.data.IDataManager;
 import com.example.sadic.ecommerceapp.data.network.model.Product;
@@ -31,6 +35,7 @@ public class NetworkHelper implements INetworkHelper {
     private static final String TAG = "NetworkHelper";
 
     Context context;
+    ProgressDialog pd;
 
     public NetworkHelper(Context context) {
         this.context = context;
@@ -44,6 +49,10 @@ public class NetworkHelper implements INetworkHelper {
         String id = SharedPref.read(SharedPref.ID, null);
         String api = SharedPref.read(SharedPref.API_KEY, null);
 
+        pd = new ProgressDialog(context);
+        pd.setMessage("Loading data from server...");
+        pd.show();
+
         String categoryListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_category.php?api_key="
                 + api + "&user_id=" + id;
 
@@ -55,49 +64,70 @@ public class NetworkHelper implements INetworkHelper {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "onResponse: started");
-                        try {
-                            JSONArray categoryArray = response.getJSONArray("category");
-                            //new variables
-                            Category category;
-                            //RecyclerView rvProduct = null;
-                            List<Category> categoryList = new ArrayList<>();
-                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
+                        if(response != null) {
+                            pd.hide();
+                            try {
+                                JSONArray categoryArray = response.getJSONArray("category");
+                                //new variables
+                                Category category;
+                                //RecyclerView rvProduct = null;
+                                List<Category> categoryList = new ArrayList<>();
+                                //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
 
 
-                            for(int i = 0; i < categoryArray.length(); i ++) {
-                                Log.d(TAG, "onResponse: response length: " + response.length());
+                                for (int i = 0; i < categoryArray.length(); i++) {
+                                    Log.d(TAG, "onResponse: response length: " + response.length());
 
-                                JSONObject products = categoryArray.getJSONObject(i);
+                                    JSONObject products = categoryArray.getJSONObject(i);
 
-                                String cId = products.getString("cid");
-                                String cName = products.getString("cname");
-                                String cDescription = products.getString("cdiscription");
-                                String cThumbImgUrl = products.getString("cimagerl");
+                                    String cId = products.getString("cid");
+                                    String cName = products.getString("cname");
+                                    String cDescription = products.getString("cdiscription");
+                                    String cThumbImgUrl = products.getString("cimagerl");
 
-                                category =
-                                        new Category(cId, cName, cDescription, cThumbImgUrl);
-                                categoryList.add(category);
-                                //add response
-                                categoryListener.getCategories(categoryList);
-                                //rvProduct.setAdapter(adapter);
+                                    category =
+                                            new Category(cId, cName, cDescription, cThumbImgUrl);
+                                    categoryList.add(category);
+                                    //add response
+                                    categoryListener.getCategories(categoryList);
+                                    //rvProduct.setAdapter(adapter);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                                alertDialog.setTitle("Connection time out.");
+                                alertDialog.setMessage("Check your internet connection.");
+                                alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent i = new Intent(context, LoginActivity.class);
+                                        context.startActivity(i);
+                                    }
+                                });
+                                alertDialog.show();
+                                Log.d(TAG, "onResponse: started");
+                                Toast.makeText(context, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-                            alertDialog.setTitle("Connection time out.");
-                            alertDialog.setMessage("Check your internet connection.");
-                            Log.d(TAG, "onResponse: started");
-                            //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        //dismissDialog();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        //dismissDialog();
+                        Log.d(TAG, "onErrorResponse: ");
+                        pd.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                        alertDialog.setTitle("Session time out.");
+                        alertDialog.setMessage("Try to log in again or check internet connection.");
+                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(context, LoginActivity.class);
+                                context.startActivity(i);
+                            }
+                        });
+                        alertDialog.show();
 
                     }
                 }
@@ -113,6 +143,10 @@ public class NetworkHelper implements INetworkHelper {
         String id = SharedPref.read(SharedPref.ID, null);
         String api = SharedPref.read(SharedPref.API_KEY, null);
 
+        pd = new ProgressDialog(context);
+        pd.setMessage("Loading data from server...");
+        pd.show();
+
         String subCategoryListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/cust_sub_category.php?Id=107&api_key="
                 + api + "&user_id=" + id;
 
@@ -124,47 +158,59 @@ public class NetworkHelper implements INetworkHelper {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "onResponse: started");
-                        try {
-                            JSONArray subCategoryArray = response.getJSONArray("subcategory");
-                            //new variables
-                            SubCategory subCategory;
-                            //RecyclerView rvProduct = null;
-                            List<SubCategory> subCategoryList = new ArrayList<>();
-                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
+                        if(response != null) {
+                            pd.hide();
+                            try {
+                                JSONArray subCategoryArray = response.getJSONArray("subcategory");
+                                //new variables
+                                SubCategory subCategory;
+                                //RecyclerView rvProduct = null;
+                                List<SubCategory> subCategoryList = new ArrayList<>();
+                                //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
 
 
-                            for(int i = 0; i < subCategoryArray.length(); i ++) {
-                                Log.d(TAG, "onResponse: response length: " + response.length());
+                                for (int i = 0; i < subCategoryArray.length(); i++) {
+                                    Log.d(TAG, "onResponse: response length: " + response.length());
 
-                                JSONObject subCategoryArr = subCategoryArray.getJSONObject(i);
+                                    JSONObject subCategoryArr = subCategoryArray.getJSONObject(i);
 
-                                String scId = subCategoryArr.getString("scid");
-                                String scName = subCategoryArr.getString("scname");
-                                String scDescription = subCategoryArr.getString("scdiscription");
-                                String scThumbImgUrl = subCategoryArr.getString("scimageurl");
+                                    String scId = subCategoryArr.getString("scid");
+                                    String scName = subCategoryArr.getString("scname");
+                                    String scDescription = subCategoryArr.getString("scdiscription");
+                                    String scThumbImgUrl = subCategoryArr.getString("scimageurl");
 
-                                subCategory =
-                                        new SubCategory(scId, scName, scDescription, scThumbImgUrl);
-                                subCategoryList.add(subCategory);
-                                //add response
-                                subCategoryListener.getSubCategories(subCategoryList);
-                                //rvProduct.setAdapter(adapter);
+                                    subCategory =
+                                            new SubCategory(scId, scName, scDescription, scThumbImgUrl);
+                                    subCategoryList.add(subCategory);
+                                    //add response
+                                    subCategoryListener.getSubCategories(subCategoryList);
+                                    //rvProduct.setAdapter(adapter);
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "onResponse: started");
+                                //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d(TAG, "onResponse: started");
-                            //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        //dismissDialog();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                        //dismissDialog();
-
+                        Log.d(TAG, "onErrorResponse: ");
+                        pd.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                        alertDialog.setTitle("Session time out.");
+                        alertDialog.setMessage("Try to log in again or check internet connection.");
+                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(context, LoginActivity.class);
+                                context.startActivity(i);
+                            }
+                        });
+                        alertDialog.show();
                     }
                 }
         );
@@ -179,9 +225,12 @@ public class NetworkHelper implements INetworkHelper {
         String api = SharedPref.read(SharedPref.API_KEY, null);
         Log.d(TAG, "getProducts: id + api " + id + " " + api);
 
+        pd = new ProgressDialog(context);
+        pd.setMessage("Loading data from server...");
+        pd.show();
+
         String productListJSONDynamic = "http://rjtmobile.com/ansari/shopingcart/androidapp/product_details.php?cid=107&scid=205&api_key="
                 + api + "&user_id=" + id;
-        //String productListJSON = "http://rjtmobile.com/ansari/shopingcart/androidapp/product_details.php?cid=107&scid=205&api_key=040a90722f3f26398ccd74b73cace4d3&user_id=1385";
 
         final JsonObjectRequest jsonObject = new JsonObjectRequest(
                 Request.Method.GET,
@@ -191,49 +240,65 @@ public class NetworkHelper implements INetworkHelper {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "onResponse: started");
-                        try {
-                            JSONArray prodArray = response.getJSONArray("products");
-                            //new variables
-                            Product product;
-                            //RecyclerView rvProduct = null;
-                            List<Product> productList = new ArrayList<>();
-                            //RecyclerViewProductAdapter adapter = new RecyclerViewProductAdapter(productList);
+
+                        if(response != null) {
+                            pd.hide();
+                            try {
+                                Log.d(TAG, "onResponse: try block");
+                                JSONArray prodArray = response.getJSONArray("products");
+                                Product product;
+                                List<Product> productList = new ArrayList<>();
+
+                                for(int i = 0; i < prodArray.length(); i ++) {
+                                    Log.d(TAG, "onResponse: response length: " + response.length());
+
+                                    JSONObject products = prodArray.getJSONObject(i);
+
+                                    String pId = products.getString("id");
+                                    String pName = products.getString("pname");
+                                    Log.d(TAG, "onResponse: ***name: " + pName);
+                                    String pQuantity = products.getString("quantity");
+                                    String pPrice = products.getString("prize");
+                                    String pDescription = products.getString("discription");
+                                    String pThumbImgUrl = products.getString("image");
+
+                                    product =
+                                            new Product(pId, pName, pQuantity, pPrice, pDescription, pThumbImgUrl);
+                                    productList.add(product);
+                                    //add response
+
+                                    //rvProduct.setAdapter(adapter);
+                                }
+                                //set data to listener
+                                productListener.getProducts(productList);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "onResponse: catch block");
+                                Log.d(TAG, "onResponse: started");
 
 
-                            for(int i = 0; i < prodArray.length(); i ++) {
-                                Log.d(TAG, "onResponse: response length: " + response.length());
-
-                                JSONObject products = prodArray.getJSONObject(i);
-
-                                String pId = products.getString("id");
-                                String pName = products.getString("pname");
-                                Log.d(TAG, "onResponse: ***name: " + pName);
-                                String pQuantity = products.getString("quantity");
-                                String pPrice = products.getString("prize");
-                                String pDescription = products.getString("discription");
-                                String pThumbImgUrl = products.getString("image");
-
-                                product =
-                                        new Product(pId, pName, pQuantity, pPrice, pDescription, pThumbImgUrl);
-                                productList.add(product);
-                                //add response
-
-                                //rvProduct.setAdapter(adapter);
+                                //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
-                            //set data to listener
-                            productListener.getProducts(productList);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Log.d(TAG, "onResponse: started");
-                            //Toast.makeText(NetworkHelper.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                        //dismissDialog();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: volley");
+                        pd.dismiss();
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+                        alertDialog.setTitle("Session time out.");
+                        alertDialog.setMessage("Try to log in again or check internet connection.");
+                        alertDialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent i = new Intent(context, LoginActivity.class);
+                                context.startActivity(i);
+                            }
+                        });
+                        alertDialog.show();
                         //Toast.makeText(MainActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                         //dismissDialog();
 

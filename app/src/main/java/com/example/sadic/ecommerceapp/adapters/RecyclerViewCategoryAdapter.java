@@ -42,9 +42,9 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
 
         Category category = categoryList.get(position);
 
-        holder.tvIdCat.setText("Id: " + category.getcId());
+        //holder.tvIdCat.setText("Id: " + category.getcId());
         holder.tvNameCat.setText(category.getcName());
-        holder.tvDescriptionCat.setText("About: " + category.getcDescription());
+        //holder.tvDescriptionCat.setText("About: " + category.getcDescription());
 
         Picasso.get()
                 .load(category.getcImage())
@@ -76,9 +76,9 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
 
         public CategoryViewHolder(View itemView) {
             super(itemView);
-            tvIdCat = itemView.findViewById(R.id.tvIdCat);
+            //tvIdCat = itemView.findViewById(R.id.tvIdCat);
             tvNameCat = itemView.findViewById(R.id.tvNameCat);
-            tvDescriptionCat = itemView.findViewById(R.id.tvDescriptionCat);
+            //tvDescriptionCat = itemView.findViewById(R.id.tvDescriptionCat);
             ivThumbCat = itemView.findViewById(R.id.ivThumbCat);
 
         }
